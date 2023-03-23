@@ -287,3 +287,45 @@ select:focus{
 .col-2 span{
     color:#ff523b;
 }
+/*Login page*/
+.login-page{
+    padding: 50px 0;
+    background: radial-gradient(#fff, #ffd6d6);
+
+}
+.form-container{
+    background: #fff;
+    width: 300px;
+    height: 350px;
+    position: relative;
+    text-align: center;
+    padding: 20px 0;
+    margin: auto;
+    box-shadow: 0 0 20px 0 rgba(0,0,0,0.1);
+}
+.form-signin h2{
+    text-align: center;
+    margin: 0 auto 30px;
+    position: relative;
+    line-height: 60px;
+    color: #555;
+}
+.form-container form{
+    max-width: 300px;
+    padding: 0 20px;
+    /*position: absolute;*/
+    /*top: 130px;*/
+}
+form input{
+    width: 100%;
+    height:30px;
+    margin: 10px 0;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+}
+form .btn{
+    width:100%;
+    border: none;
+    cursor:pointer;
+    margin: 10px 0;
+}
