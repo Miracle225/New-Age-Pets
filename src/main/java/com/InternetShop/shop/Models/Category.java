@@ -19,7 +19,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 public class Category {
-    @Id
+    @javax.persistence.Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "category_id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")

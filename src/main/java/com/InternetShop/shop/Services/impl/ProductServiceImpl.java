@@ -5,6 +5,8 @@ import com.InternetShop.shop.Services.ProductService;
 import com.InternetShop.shop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -56,5 +58,16 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public long count() {
         return productRepository.count();
+    }
+
+    @Override
+    public List<Product> findAllByCategoryName(String category){
+        List<Product> products = productRepository.findAll();
+        List<Product> categoryProducts = new ArrayList<>();
+        for (Product product:products) {
+            if(product.getCategory().getCategoryName().equals(category))
+                categoryProducts.add(product);
+        }
+        return categoryProducts;
     }
 }

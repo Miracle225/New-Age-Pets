@@ -1,7 +1,9 @@
 package com.InternetShop.shop.Controllers;
 
 
+import com.InternetShop.shop.Models.Status;
 import com.InternetShop.shop.Models.User;
+import com.InternetShop.shop.Models.UserRole;
 import com.InternetShop.shop.Services.UserService;
 import com.InternetShop.shop.validator.UserValidator;
 import org.slf4j.Logger;
@@ -29,22 +31,20 @@ public class RegisterController {
     @GetMapping("/register")
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
-
         return "register";
     }
 
     @PostMapping("/register")
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
+        userForm.setStatus(Status.ACTIVE);
+        userForm.setRole(UserRole.USER);
         userValidator.validate(userForm, bindingResult);
-
         if (bindingResult.hasErrors()) {
             logger.error(String.valueOf(bindingResult.getFieldError()));
             return "register";
         }
-
         userService.save(userForm);
-        //userService.login(userForm.getUsername(), userForm.getPasswordConfirm());
-
-        return "redirect:/home";
+        userService.login(userForm.getUsername(), userForm.getPasswordConfirm());
+        return "redirect:/login";
     }
 }

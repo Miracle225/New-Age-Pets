@@ -29,10 +29,11 @@
                         </p>
                         <p>
                             <label for="password">Password</label>
-                            <input type="text" id="password" name="password"  placeholder="Password" required>
+                            <input type="password" id="password" name="password"  placeholder="Password" required>
                         </p>
                         <button class="btn" type="submit">Sign in</button>
                         <a href="">Forgot password</a>
+                        <p class="no-account-text">Don't have an account?<a th:href="@{/register}" class="no-account">Click here</a></p>
                     </form>
                 </div>
             </div>

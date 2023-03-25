@@ -1,5 +1,6 @@
 package com.InternetShop.shop.Controllers;
 
+import com.InternetShop.shop.Models.Category;
 import com.InternetShop.shop.Models.Product;
 import com.InternetShop.shop.Services.CategoryService;
 import com.InternetShop.shop.Services.ProductService;
@@ -50,6 +51,12 @@ public class ProductController {
         model.addAttribute("products", getAllProducts());
         model.addAttribute("featuredProds",getFourProdForCategory(product.getCategory().getCategoryName()));
         return "product";
+    }
+    @GetMapping("products/{category}")
+    public String getCategoryProducts(@PathVariable String category,Model model){
+        model.addAttribute("categoryProducts", getAllProductsByCategory(category));
+        model.addAttribute("category", category);
+        return "category-products";
     }
 
     @GetMapping("/product/new")
@@ -113,6 +120,9 @@ public class ProductController {
             return "error/404";
         }
     }
+    private List<Product> getAllProductsByCategory(String name){
+        return productService.findAllByCategoryName(name);
+    }
 
     private List<Product> getAllProducts() {
         return productService.findAll();
@@ -133,5 +143,4 @@ public class ProductController {
         }
         return featuredProducts;
     }
-
 }

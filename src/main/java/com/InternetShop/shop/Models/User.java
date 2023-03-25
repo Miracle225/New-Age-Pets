@@ -71,6 +71,8 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private List<Order> orders;
 
+//    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+//    private User user;
     public User(String username,
                 String email,
                 String password,

@@ -36,7 +36,7 @@ public class StartUpData implements CommandLineRunner {
         //adminAccount();
        // userAccount();
         //category();
-        //exampleProducts();
+       // exampleProducts();
     }
 
     private void userAccount(){

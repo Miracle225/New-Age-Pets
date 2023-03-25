@@ -25,7 +25,7 @@ public class UserController {
         }else {
             return "error";
         }
-        return "user";
+        return "account";
 
 
     }

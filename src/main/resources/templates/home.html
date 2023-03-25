@@ -1,9 +1,10 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
 <meta charset="UTF-8">
 <title>New age pets</title>
-<link href="css/style.css" rel="stylesheet"/>
+<link href="/css/style.css" rel="stylesheet"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,200;1,600&display=swap"
@@ -15,18 +16,30 @@
     <div class="container">
         <div class="navbar">
             <div class="logo">
-                <img src="images/logo.png" width="125px">
+                <img src="/images/logo.png" width="125px">
             </div>
             <nav>
                 <ul>
+<!--                    <a th:href="@{/login}" href="/login"><li sec:authorize="isAnonymous()" >Login</li></a>-->
+                    <li><a  sec:authorize="isAnonymous()" th:href="@{/login}">
+                        <form th:action="@{/login}">
+                            <button class="login" type="submit">Log In</button>
+                        </form>
+                    </a></li>
                     <li><a th:href="@{/home}" href="/home">Home</a></li>
                     <li><a th:href="@{/about}" href="/about">About</a></li>
-                    <li><a th:href="@{/#}" href="/#">Contact us</a></li>
-                    <li><a th:href="@{/#}" href="/#">Account</a></li>
+                    <li><a th:href="@{/contact-us}" href="/#contact-us">Contact us</a></li>
+                    <li><a th:href="@{/user}" href="/user">Account</a></li>
+                    <li><a  sec:authorize="isAuthenticated()" th:href="@{/login}">
+                        <form method="post" th:action="@{/logout}">
+                            <button class="logout" type="submit">Log Out</button>
+                        </form>
+                    </a></li>
                 </ul>
+
             </nav>
             <a th:href="@{/cart}">
-                <img src="images/shopping-cart.png" width="30px" height="30px"></a>
+                <img src="/images/shopping-cart.png" width="30px" height="30px"></a>
         </div>
         <div class="row">
             <div class="col-2">
@@ -39,7 +52,7 @@
                 <a th:href="@{/products}" class="btn">Explore Now &#8594</a>
             </div>
             <div class="col-2">
-                <img src="images/mainpic.png">
+                <img src="/images/mainpic.png">
             </div>
         </div>
     </div>
@@ -50,8 +63,10 @@
     <div class="small-container">
         <div class="row">
             <div th:each="category:${categories}" class="col-3">
+                <a th:href="@{/products/{category}(category=${category.categoryName})}">
                 <img th:src="${category.getUrl()}">
                 <h3 th:text="${category.getCategoryName()}"></h3>
+                </a>
             </div>
         </div>
     </div>

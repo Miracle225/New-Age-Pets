@@ -1,6 +1,7 @@
 package com.InternetShop.shop.config;
 
 import com.InternetShop.shop.Models.Permission;
+import com.InternetShop.shop.Models.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -40,8 +41,8 @@ public class WebSecurityConfig {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers(HttpMethod.GET,"/home").hasAuthority(Permission.USERS_READ.getPermission())
+                .antMatchers("/","/login","/home").permitAll()
+                .antMatchers(HttpMethod.GET,"/user").hasAuthority(Permission.USERS_READ.getPermission())
                 .antMatchers(HttpMethod.GET, "/admin").hasAuthority(Permission.USERS_WRITE.getPermission())
                 .and()
                 .formLogin()
