@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Sign in</title>
@@ -12,7 +12,27 @@
 </head>
 
 <body>
-<div th:replace="fragments/header"></div>
+<div class="header">
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <img src="/images/logo.png" width="125px">
+            </div>
+            <nav>
+                <ul>
+                    <!--                    <a th:href="@{/login}" href="/login"><li sec:authorize="isAnonymous()" >Login</li></a>-->
+                    <li><a th:href="@{/home}" href="/home">Home</a></li>
+                    <li><a th:href="@{/about}" href="/about">About</a></li>
+                    <li><a th:href="@{/contact-us}" href="/#contact-us">Contact us</a></li>
+                    <li><a th:href="@{/user}" href="/user">Account</a></li>
+                </ul>
+
+            </nav>
+            <a th:href="@{/cart}">
+                <img src="/images/shopping-cart.png" width="30px" height="30px"></a>
+        </div>
+    </div>
+</div>
 <div class="login-page">
     <div class="container">
         <div class="row">

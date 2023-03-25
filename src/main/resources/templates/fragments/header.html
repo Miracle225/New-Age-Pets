@@ -6,14 +6,26 @@
             </div>
             <nav>
                 <ul>
+                    <!--                    <a th:href="@{/login}" href="/login"><li sec:authorize="isAnonymous()" >Login</li></a>-->
+                    <li><a sec:authorize="isAnonymous()" th:href="@{/login}">
+                        <form th:action="@{/login}">
+                            <button class="login" type="submit">Log In</button>
+                        </form>
+                    </a></li>
                     <li><a th:href="@{/home}" href="/home">Home</a></li>
                     <li><a th:href="@{/about}" href="/about">About</a></li>
-                    <li><a th:href="@{/#}" href="/#">Contact us</a></li>
+                    <li><a th:href="@{/contact-us}" href="/#contact-us">Contact us</a></li>
                     <li><a th:href="@{/user}" href="/user">Account</a></li>
+                    <li><a sec:authorize="isAuthenticated()" th:href="@{/login}">
+                        <form method="post" th:action="@{/logout}">
+                            <button class="logout" type="submit">Log Out</button>
+                        </form>
+                    </a></li>
                 </ul>
+
             </nav>
-            <img src="/images/shopping-cart.png" width="30px" height="30px">
+            <a th:href="@{/cart}">
+                <img src="/images/shopping-cart.png" width="30px" height="30px"></a>
         </div>
     </div>
-</div>
 </div>

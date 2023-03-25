@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="UTF-8">
 <title>All products - New age pets</title>
-<link href="css/style.css" rel="stylesheet"/>
+<link href="/css/style.css" rel="stylesheet"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,200;1,600&display=swap"
@@ -12,24 +12,7 @@
 </head>
 
 <body>
-<div class="header">
-    <div class="container">
-        <div class="navbar">
-            <div class="logo">
-                <img src="images/logo.png" width="125px">
-            </div>
-            <nav>
-                <ul>
-                    <li><a th:href="@{/home}" href="/home">Home</a></li>
-                    <li><a th:href="@{/about}" href="/about">About</a></li>
-                    <li><a th:href="@{/#}" href="/#">Contact us</a></li>
-                    <li><a th:href="@{/#}" href="/#">Account</a></li>
-                </ul>
-            </nav>
-            <img src="images/shopping-cart.png" width="30px" height="30px">
-        </div>
-    </div>
-</div>
+<div th:replace="fragments/header"></div>
 <!--All products-->
 <div class="small-container">
     <div class="row row-2">
@@ -58,40 +41,7 @@
         <span>&#8594;</span>
     </div>
 </div>
-<!--Footer-->
-<div class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="footer-col-1">
-                <h3>Subscribe on my GitHub</h3>
-                <a href="https://github.com/Miracle225">https://github.com/Miracle225</a>
-            </div>
-            <div class="footer-col-2">
-                <img src="images/logo.png">
-                <p>Purpose of this site it is learning how to use Spring with
-                    Hibernate and Thymeleaf+HTML+CSS to build web app</p>
-            </div>
-            <div class="footer-col-3">
-                <h3>Useful Links</h3>
-                <ul>
-                    <li>Coupons</li>
-                    <li>Blog Post</li>
-                    <li>Return Policy</li>
-                </ul>
-            </div>
-            <div class="footer-col-4">
-                <h3>Contact Links</h3>
-                <ul>
-                    <li>Telegram</li>
-                    <li>Instagram</li>
-                    <li>Email</li>
-                </ul>
-            </div>
-        </div>
-        <hr>
-        <p class="copyright">Copyright 2023 - New Age Pets</p>
-    </div>
-</div>
+<div th:replace="fragments/footer"></div>
 </body>
 
 </html>
