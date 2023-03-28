@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-<meta charset="UTF-8">
-<title th:text="${product.getName()}"></title>
-<link href="/css/style.css" rel="stylesheet"/>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,200;1,600&display=swap"
-      rel="stylesheet">
+    <meta charset="UTF-8">
+    <title th:text="${product.getName()}"></title>
+    <link href="/css/style.css" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,200;1,600&display=swap"
+          rel="stylesheet">
 </head>
 <body>
 <div th:replace="fragments/header"></div>
@@ -17,7 +17,6 @@
     <div class="row">
         <div class="col-2">
             <img th:src="${product.getPictureUrl()}" width="100%">
-
             <!--<div class="small-img-row">-->
             <!--    <div class="small-img-col">-->
             <!--        <img th:src="${product.getPictureUrl()}" width="100%">-->
@@ -25,15 +24,19 @@
             <!--</div>-->
         </div>
         <div class="col-2">
-            <p th:text="${product.category.getCategoryName()}"></p>
-            <h4 class="out-of-stock" th:if="${product.quantity}==0">Product out of stock</h4>
-            <h1 th:text="${product.name}"></h1>
-            <h4 th:text="${product.price}+'&#36'"></h4>
-            <input type="number" th:name="quantity" th:value="1" th:max="${product.quantity}" th:min="1">
-            <a th:href="${'/cart/add/' + product.getId()}" class="btn">Add To Cart</a>
-            <h3>Product Details<span> &#9759;</span></h3>
-            <br>
-            <p th:text="${product.description}"></p>
+            <form th:action="@{/cart/add}">
+                <input type="hidden" th:value="${product.id}" name="id"/>
+<!--                <span th:text="${product.id}"></span>-->
+                <p th:text="${product.category.getCategoryName()}"></p>
+                <h4 class="out-of-stock" th:if="${product.quantity}==0">Product out of stock</h4>
+                <h1 th:text="${product.name}"></h1>
+                <h4 th:text="${product.price}+'&#36'"></h4>
+                <input type="number" th:name="qty" th:value="1" th:max="${product.quantity}" th:min="1">
+                <button class="btn" type="submit">Add To Cart</button>
+                <h3>Product Details<span> &#9759;</span></h3>
+                <br>
+                <p th:text="${product.description}"></p>
+            </form>
         </div>
     </div>
 </div>
@@ -43,7 +46,7 @@
         <p>View more</p>
     </div>
 </div>
-<div th:with="i=4" class="small-container">
+<div class="small-container">
     <div class="row">
         <div th:each="product2:${featuredProds}" class="col-4">
             <a th:href="@{/product/{id}(id=${product2.id})}">

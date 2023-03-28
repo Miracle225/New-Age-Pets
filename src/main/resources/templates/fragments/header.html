@@ -6,7 +6,6 @@
             </div>
             <nav>
                 <ul>
-                    <!--                    <a th:href="@{/login}" href="/login"><li sec:authorize="isAnonymous()" >Login</li></a>-->
                     <li><a sec:authorize="isAnonymous()" th:href="@{/login}">
                         <form th:action="@{/login}">
                             <button class="login" type="submit">Log In</button>

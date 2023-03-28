@@ -1,6 +1,5 @@
 package com.InternetShop.shop.Controllers;
 
-import com.InternetShop.shop.Models.Category;
 import com.InternetShop.shop.Models.Product;
 import com.InternetShop.shop.Services.CategoryService;
 import com.InternetShop.shop.Services.ProductService;
@@ -8,7 +7,6 @@ import com.InternetShop.shop.validator.ProductValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,10 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 public class ProductController {
@@ -49,11 +44,24 @@ public class ProductController {
         Product product = productService.findById(id).get();
         model.addAttribute("product", product);
         model.addAttribute("products", getAllProducts());
-        model.addAttribute("featuredProds",getFourProdForCategory(product.getCategory().getCategoryName()));
+        model.addAttribute("featuredProds", getFourProdForCategory(product.getCategory().getCategoryName()));
         return "product";
     }
+
+//    @PostMapping("product/{id}")
+//    public String setProduct(@ModelAttribute ("cartObj") Map<Product,Integer> cartObj, BindingResult bindingResult, @PathVariable UUID id){
+//           Product product = productService.findById(id).get();
+//           Integer quantity = cartObj.get(product);
+//            if (bindingResult.hasErrors()) {
+//                logger.error(String.valueOf(bindingResult.getFieldError()));
+//                return "product";
+//            }
+//            shoppingCartService.addProduct(product,quantity);
+//            return "redirect:/home";
+//    }
+
     @GetMapping("products/{category}")
-    public String getCategoryProducts(@PathVariable String category,Model model){
+    public String getCategoryProducts(@PathVariable String category, Model model) {
         model.addAttribute("categoryProducts", getAllProductsByCategory(category));
         model.addAttribute("category", category);
         return "category-products";
@@ -120,7 +128,8 @@ public class ProductController {
             return "error/404";
         }
     }
-    private List<Product> getAllProductsByCategory(String name){
+
+    private List<Product> getAllProductsByCategory(String name) {
         return productService.findAllByCategoryName(name);
     }
 
@@ -132,9 +141,9 @@ public class ProductController {
         int i = 4;
         List<Product> products = productService.findAll();
         List<Product> featuredProducts = new ArrayList<>(4);
-        for (Product product:products) {
-            if(product.getCategory().getCategoryName().equals(category)){
-                if(i>0){
+        for (Product product : products) {
+            if (product.getCategory().getCategoryName().equals(category)) {
+                if (i > 0) {
                     featuredProducts.add(product);
                     i--;
                 }

@@ -16,7 +16,7 @@
 </head>
 <body>
 <div th:replace="fragments/header"></div>
-<div class="card-body">
+<div sec:authorize="isAuthenticated()" class="card-body">
     <form>
         <h6 class="heading-small text-muted mb-4">User information</h6>
         <div class="pl-lg-4">
@@ -67,8 +67,12 @@
                 </div>
             </div>
         </div>
+        <a th:href="@{user/edit}">
+            <div class="btn">Edit info</div></a>
+
     </form>
 </div>
+<h2 sec:authorize="isAnonymous()">We don't have info about you.<a th:href="@{/login}"> Login</a> to see your profile</h2>
 <div th:replace="fragments/footer"></div>
 </body>
 </html>

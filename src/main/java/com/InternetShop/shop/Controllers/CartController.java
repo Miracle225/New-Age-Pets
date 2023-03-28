@@ -1,68 +1,59 @@
 package com.InternetShop.shop.Controllers;
+
+import com.InternetShop.shop.Models.Cart;
+import com.InternetShop.shop.Models.CartManager;
 import com.InternetShop.shop.Models.Product;
 import com.InternetShop.shop.Services.ProductService;
-import com.InternetShop.shop.Services.ShoppingCartService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.UUID;
 
 @Controller
+@RequestMapping("/cart")
 public class CartController {
-    private static final Logger logger = LoggerFactory.getLogger(CartController.class);
-    private final ShoppingCartService shoppingCartService;
+
+    private final CartManager cartManager;
     private final ProductService productService;
 
     @Autowired
-    public CartController(ShoppingCartService shoppingCartService, ProductService productService) {
-        this.shoppingCartService = shoppingCartService;
+    public CartController(CartManager cartManager, ProductService productService) {
+        this.cartManager = cartManager;
         this.productService = productService;
     }
 
-    @GetMapping("/cart")
-    public String cart(Model model){
-        model.addAttribute("products", shoppingCartService.productsInCart());
-        model.addAttribute("totalPrice", shoppingCartService.totalPrice());
-
+    @GetMapping
+    public String getCart(Model model, HttpSession session) {
+        model.addAttribute("cart", cartManager.getCart(session));
         return "cart";
     }
 
-    @GetMapping("/cart/add/{id}")
-    public String addProductToCart(@PathVariable("id") UUID id){
-        Product product = productService.findById(id).get();
-        if (product != null){
-            shoppingCartService.addProduct(product);
-            logger.debug(String.format("Product with id: %s added to shopping cart.", id));
-        }
+    @RequestMapping("/add")
+    public String add(HttpSession session, @RequestParam("id") Product product,
+                      @RequestParam(value = "qty", required = false, defaultValue = "1") int qty) {
+        Cart cart = cartManager.getCart(session);
+        cart.addItem(product, qty);
         return "redirect:/home";
     }
 
-    @GetMapping("/cart/remove/{id}")
-    public String removeProductFromCart(@PathVariable("id") UUID id){
+    @RequestMapping("/remove")
+    public String remove(HttpSession session, @RequestParam("id") UUID id) {
         Product product = productService.findById(id).get();
-        if (product != null){
-            shoppingCartService.removeProduct(product);
-            logger.debug(String.format("Product with id: %s removed from shopping cart.", id));
-        }
+                Cart cart = cartManager.getCart(session);
+        cart.removeItem(product);
         return "redirect:/cart";
     }
 
-    @GetMapping("/cart/clear")
-    public String clearProductsInCart(){
-        shoppingCartService.clearProducts();
-
-        return "redirect:/cart";
-    }
-
-    @GetMapping("/cart/checkout")
-    public String cartCheckout(){
-        shoppingCartService.cartCheckout();
-
+    @RequestMapping("/update")
+    public String update(HttpSession session, @RequestParam("id") UUID id, @RequestParam("qty") int qty) {
+        Product product = productService.findById(id).get();
+        Cart cart = cartManager.getCart(session);
+        cart.updateItem(product, qty);
         return "redirect:/cart";
     }
 }

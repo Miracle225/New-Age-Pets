@@ -20,7 +20,6 @@ import java.util.UUID;
 @Controller
 public class HomeController {
     private final ProductService productService;
-    private final UserService userService;
 
     @Autowired
     private CategoryService categoryService;
@@ -28,7 +27,6 @@ public class HomeController {
     @Autowired
     public HomeController(ProductService productService,UserService userService) {
         this.productService = productService;
-        this.userService = userService;
     }
 
     @GetMapping(value = {"/","/index","/home"})
