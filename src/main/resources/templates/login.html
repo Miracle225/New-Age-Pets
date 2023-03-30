@@ -20,7 +20,6 @@
             </div>
             <nav>
                 <ul>
-                    <!--                    <a th:href="@{/login}" href="/login"><li sec:authorize="isAnonymous()" >Login</li></a>-->
                     <li><a th:href="@{/home}" href="/home">Home</a></li>
                     <li><a th:href="@{/about}" href="/about">About</a></li>
                     <li><a th:href="@{/contact-us}" href="/#contact-us">Contact us</a></li>
@@ -52,7 +51,7 @@
                             <input type="password" id="password" name="password"  placeholder="Password" required>
                         </p>
                         <button class="btn" type="submit">Sign in</button>
-                        <a href="">Forgot password</a>
+<!--                        <a th:href="@{/account-recovery}">Forgot password</a>-->
                         <p class="no-account-text">Don't have an account?<a th:href="@{/register}" class="no-account">Click here</a></p>
                     </form>
                 </div>
@@ -60,27 +59,6 @@
         </div>
     </div>
 </div>
-<!--<br>-->
-<!--<br>-->
-<!--<br>-->
-<!--<br>-->
-<!--<br>-->
-<!--<br>-->
-<!--<br>-->
-<!--<div class="container">-->
-<!--    <form class="form-signin" method="post" action="/login">-->
-<!--        <h2 class="form-signin-heading">Login</h2>-->
-<!--        <p>-->
-<!--            <label for="username">Username</label>-->
-<!--            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required>-->
-<!--        </p>-->
-<!--        <p>-->
-<!--            <label for="password">Password</label>-->
-<!--            <input type="text" id="password" name="password" class="form-control" placeholder="Password" required>-->
-<!--        </p>-->
-<!--        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>-->
-<!--    </form>-->
-<!--</div>-->
 <div th:replace="fragments/footer"></div>
 
 </body>

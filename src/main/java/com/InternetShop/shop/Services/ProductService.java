@@ -15,5 +15,6 @@ public interface ProductService {
     List<Product> findAllByCategory(UUID Id);
     long count();
     List<Product> findAllByCategoryName(String name);
+    List<Product> findAllBySearchKey(String key);
 
 }

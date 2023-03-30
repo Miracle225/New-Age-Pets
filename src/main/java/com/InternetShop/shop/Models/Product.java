@@ -27,11 +27,11 @@ public class Product {
     @Column
     private String name;
 
-    @Column(name = "picture_url")
+    @Column(name = "picture_url" ,columnDefinition = "TEXT")
     private String pictureUrl;
 
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Column

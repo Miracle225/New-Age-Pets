@@ -13,7 +13,7 @@
 <body>
 <div th:replace="fragments/header"></div>
 <!--cart items details-->
-<div class="small-container cart-page">
+<div sec:authorize="isAuthenticated()" class="small-container cart-page">
     <table>
         <tr>
             <th>Product</th>
@@ -55,6 +55,7 @@
         </table>
     </div>
 </div>
+<div sec:authorize="isAnonymous()" class="container"><h2>If you want to order products, login first. <a th:href="@{/login}">Click here</a></h2><br></div>
 
 <div th:replace="fragments/footer"></div>
 </body>

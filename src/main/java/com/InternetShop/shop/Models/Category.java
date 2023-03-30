@@ -31,7 +31,7 @@ public class Category {
     @NotEmpty
     private String categoryName;
 
-    @Column(name="url")
+    @Column(name="url", columnDefinition = "TEXT")
     @NotNull
     private String url;
 

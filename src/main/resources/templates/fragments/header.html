@@ -4,6 +4,14 @@
             <div class="logo">
                 <img src="/images/logo.png" width="125px">
             </div>
+            <div class="searchArea">
+                <form th:action="@{/products/search}">
+                    <button type="submit" tabindex="2">Search</button>
+                    <div class="inputDiv">
+                        <input type="text" name="search" id="inputField" tabindex="1" placeholder="Search here">
+                    </div>
+                </form>
+            </div>
             <nav>
                 <ul>
                     <li><a sec:authorize="isAnonymous()" th:href="@{/login}">

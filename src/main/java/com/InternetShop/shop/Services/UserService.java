@@ -2,6 +2,7 @@ package com.InternetShop.shop.Services;
 
 import com.InternetShop.shop.Models.User;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -17,5 +18,6 @@ public interface UserService {
     Optional<User> findById(UUID id);
 
     User editUser(User user);
+    List<User> findAll();
 
 }

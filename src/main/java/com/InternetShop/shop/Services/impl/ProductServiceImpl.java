@@ -70,4 +70,9 @@ public class ProductServiceImpl implements ProductService {
         }
         return categoryProducts;
     }
+
+    @Override
+    public List<Product> findAllBySearchKey(String key) {
+        return productRepository.findByNameContainingIgnoreCase(key);
+    }
 }
