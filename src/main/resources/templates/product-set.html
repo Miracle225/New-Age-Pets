@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>All products - New age pets</title>
+    <link href="/css/style.css" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,200;1,600&display=swap"
+          rel="stylesheet">
+</head>
+
+<body>
+<div th:replace="fragments/header"></div>
+<div class="register-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <div class="form-container-admin">
+                    <form class="form-register" method="post" th:object="${productForm}">
+                        <h2 th:if="${method=='new'}">Add new product</h2>
+                        <h2 th:if="${method=='edit'}">Edit product</h2>
+                        <p>
+                            <label>Category</label>
+                            <select th:field="*{category.id}" name="category.id" autofocus>
+                                <option th:if="${method=='edit'}" th:value="${productForm.category.id}"
+                                th:text="${productForm.category.categoryName}"></option>
+                                <!--                                <option th:if="${method=='edit'} " th:each="cat : ${categories}" th:value="${cat.id}"-->
+                                <!--                                        th:text="${cat.categoryName}"></option>-->
+                                <option th:if="${method=='new'} " th:each="cat : ${categories}" th:value="${cat.id}"
+                                        th:text="${cat.categoryName}"></option>
+                            </select>
+                        </p>
+                        <p>
+                            <label>Name</label>
+                            <input type="text" th:field="*{name}" autofocus placeholder="Name">
+                        </p>
+                        <p>
+                            <label>Description</label>
+                            <input type="text" th:field="*{description}" autofocus placeholder="Description">
+                        </p>
+                        <p>
+                            <label>Url</label>
+                            <input type="url" th:field="*{pictureUrl}" autofocus placeholder="Picture url">
+                        </p>
+                        <p>
+                            <label>Price</label>
+                            <input type="text" th:field="*{price}" autofocus placeholder="Price">
+                        </p>
+                        <p>
+                            <label>Quantity</label>
+                            <input type="number" th:field="*{quantity}" autofocus placeholder="Quantity">
+                        </p>
+                        <br>
+                        <button th:if="${method=='edit'}" class="btn" type="submit"
+                                th:action="@{/product/edit/{productId}}">Edit
+                        </button>
+                        <button th:if="${method=='new'}" class="btn" type="submit" th:action="@{/product/new}">Add
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer"></div>
+</body>
+
+</html>

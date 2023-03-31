@@ -17,6 +17,9 @@
 <div class="small-container">
     <div class="row row-2">
         <h2>All products</h2>
+        <div sec:authorize="hasAuthority('users:write')">
+<button><a th:href="@{/product/new}">Add product</a></button>
+        </div>
         <select>
             <option>Sort by name</option>
             <option>Sort by price(cheap to expensive)</option>
@@ -30,16 +33,20 @@
                 <img th:src="${product.getPictureUrl()}"></a>
                 <h4 th:text="${product.getName()}"></h4>
                 <p th:text="${product.getPrice()}+'&#36'"></p>
+                <div sec:authorize="hasAuthority('users:write')">
+                    <button type="submit"><a th:href="@{/product/edit/{id}(id=${product.id})}">Edit</a></button>
+                    <button type="submit"><a th:href="@{/product/delete/{id}(id=${product.id})}">Delete</a></button>
+                </div>
             </div>
         </div>
     </div>
-    <div class="page-btn">
-        <span>1</span>
-        <span>2</span>
-        <span>3</span>
-        <span>4</span>
-        <span>&#8594;</span>
-    </div>
+<!--    <div class="page-btn">-->
+<!--        <span>1</span>-->
+<!--        <span>2</span>-->
+<!--        <span>3</span>-->
+<!--        <span>4</span>-->
+<!--        <span>&#8594;</span>-->
+<!--    </div>-->
 </div>
 <div th:replace="fragments/footer"></div>
 </body>

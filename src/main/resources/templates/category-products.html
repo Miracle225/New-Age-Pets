@@ -17,6 +17,9 @@
 <div class="small-container">
     <div class="row row-2">
         <h2 class="category-title" th:text="'Category: '+${category}"></h2>
+        <div sec:authorize="hasAuthority('users:write')">
+            <button><a th:href="@{/product/new}">Add product</a></button>
+        </div>
     </div>
     <div class="small-container">
         <div class="row">
@@ -25,6 +28,10 @@
                     <img th:src="${product.getPictureUrl()}"></a>
                 <h4 th:text="${product.getName()}"></h4>
                 <p th:text="${product.getPrice()}+'&#36'"></p>
+                <div sec:authorize="hasAuthority('users:write')">
+                    <button type="submit"><a th:href="@{/product/edit/{id}(id=${product.id})}">Edit</a></button>
+                    <button type="submit"><a th:href="@{/product/delete/{id}(id=${product.id})}">Delete</a></button>
+                </div>
             </div>
         </div>
     </div>

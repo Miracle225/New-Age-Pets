@@ -1,6 +1,7 @@
 package com.InternetShop.shop.Controllers;
 
 import com.InternetShop.shop.Models.Product;
+import com.InternetShop.shop.Models.UserRole;
 import com.InternetShop.shop.Services.CategoryService;
 import com.InternetShop.shop.Services.ProductService;
 import com.InternetShop.shop.validator.ProductValidator;
@@ -32,6 +33,8 @@ public class ProductController {
 
     @GetMapping("/products")
     public String products(Model model) {
+        UserRole admin = UserRole.ADMIN;
+        model.addAttribute("admin",admin);
         model.addAttribute("products", getAllProducts());
         return "products";
     }
@@ -53,18 +56,6 @@ public class ProductController {
         return "product";
     }
 
-//    @PostMapping("product/{id}")
-//    public String setProduct(@ModelAttribute ("cartObj") Map<Product,Integer> cartObj, BindingResult bindingResult, @PathVariable UUID id){
-//           Product product = productService.findById(id).get();
-//           Integer quantity = cartObj.get(product);
-//            if (bindingResult.hasErrors()) {
-//                logger.error(String.valueOf(bindingResult.getFieldError()));
-//                return "product";
-//            }
-//            shoppingCartService.addProduct(product,quantity);
-//            return "redirect:/home";
-//    }
-
     @GetMapping("products/{category}")
     public String getCategoryProducts(@PathVariable String category, Model model) {
         model.addAttribute("categoryProducts", getAllProductsByCategory(category));
@@ -77,18 +68,18 @@ public class ProductController {
         model.addAttribute("productForm", new Product());
         model.addAttribute("method", "new");
         model.addAttribute("categories", categoryService.findAll());
-        return "product";
+        return "product-set";
     }
 
     @PostMapping("/product/new")
     public String newProduct(@ModelAttribute("productForm") Product productForm, BindingResult bindingResult, Model model) {
-        productValidator.validate(productForm, bindingResult);
-
+        //productValidator.validate(productForm, bindingResult);
         if (bindingResult.hasErrors()) {
             logger.error(String.valueOf(bindingResult.getFieldError()));
             model.addAttribute("method", "new");
-            return "product";
+            return "product-set";
         }
+
         productService.save(productForm);
         logger.debug(String.format("Product with id: %s successfully created.", productForm.getId()));
 
@@ -101,7 +92,7 @@ public class ProductController {
         if (product.isPresent()) {
             model.addAttribute("productForm", product.get());
             model.addAttribute("method", "edit");
-            return "product";
+            return "product-set";
         } else {
             return "error/404";
         }
@@ -109,12 +100,11 @@ public class ProductController {
 
     @PostMapping("/product/edit/{id}")
     public String editProduct(@PathVariable("id") UUID productId, @ModelAttribute("productForm") Product productForm, BindingResult bindingResult, Model model) {
-        productValidator.validate(productForm, bindingResult);
-
+        //productValidator.validate(productForm, bindingResult);
         if (bindingResult.hasErrors()) {
             logger.error(String.valueOf(bindingResult.getFieldError()));
             model.addAttribute("method", "edit");
-            return "product";
+            return "product-set";
         }
         productService.edit(productId, productForm);
         logger.debug(String.format("Product with id: %s has been successfully edited.", productId));
@@ -122,7 +112,7 @@ public class ProductController {
         return "redirect:/home";
     }
 
-    @PostMapping("/product/delete/{id}")
+    @GetMapping("/product/delete/{id}")
     public String deleteProduct(@PathVariable("id") UUID productId) {
         Optional<Product> product = productService.findById(productId);
         if (product.isPresent()) {

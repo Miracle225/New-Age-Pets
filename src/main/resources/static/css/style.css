@@ -598,3 +598,19 @@ div.t > input {
 .searchArea button:hover {
     background: #563434;
 }
+.form-container-admin {
+    background: #fff;
+    width: 300px;
+    height: 570px;
+    position: relative;
+    text-align: left;
+    padding: 20px 0;
+    margin: auto;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+}
+
+.form-container-admin form {
+    max-width: 300px;
+    padding: 0 20px;
+
+}
